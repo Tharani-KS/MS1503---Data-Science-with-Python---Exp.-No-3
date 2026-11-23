@@ -39,21 +39,70 @@ To create a sample retail dataset, identify and handle missing values (`NaN`/`No
 
 #Cleaning and Preparing Retail Data using Pandas
 
+import pandas as pd
+
 #Step 1: Create a sample retail dataset
+
+data = {
+    "Order_ID": [101, 102, 103, 104, 105, 105, 106, 107],
+    "Product": [
+        "Laptop",
+        "Tablet",
+        "Phone",
+        "Printer",
+        "Monitor",
+        "Monitor",
+        "Tablet",
+        "Laptop",
+    ],
+    "Region": ["East", "West", "North", "South", "East", "East", "West", None],
+    "Sales": [55000, 32000, None, 18000, 24000, 24000, 32000, 55000],
+    "Discount": [5, None, 10, 8, 5, 5, None, 8],
+    "Profit": [8000, 5000, 4000, None, 3000, 3000, 5000, 8000],
+}
+
+df = pd.DataFrame(data)
+
+print("---- Original Retail Dataset ----")
+
+print(df)
+
+print("\nDataset Shape:", df.shape)
 
 #Step 2: Check for missing values
 
+print("\nMissing Values per Column:\n", df.isnull().sum())
+
 #Step 3: Fill missing numeric values with column mean
+
+df["Sales"] = df["Sales"].fillna(df["Sales"].mean())
+
+df["Discount"] = df["Discount"].fillna(df["Discount"].mean())
+
+df["Profit"] = df["Profit"].fillna(df["Profit"].mean())
 
 #Step 4: Fill missing Region with mode (most frequent value)
 
+df["Region"] = df["Region"].fillna(df["Region"].mode()[0])
+
 #Step 5: Remove duplicate records
+
+df.drop_duplicates(inplace=True)
+
+print("\n---- Cleaned Retail Dataset ----")
+
+print(df)
+
+print("\nDataset Shape after Cleaning:", df.shape)
 
 #Step 6: Display summary statistics
 
+print("\nSummary Statistics:\n", df.describe())
 
 
 ## Output
+
+<img width="652" height="1059" alt="image" src="https://github.com/user-attachments/assets/6f8fe5b9-ca10-4843-9866-60d622ac63df" />
 
 
 ## Result
